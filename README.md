@@ -13,7 +13,7 @@ Neither `GridDragView` or `GridDragViewModel` does any size calculations.  They 
 Create a `GridDragViewModel`:  
 
 ```swift
-GridDragViewModel((rows: Int, cols: Int, cellSize: CGFloat, viewFactory: ViewFactoryProtocol?, cells: [GridCell]?)
+func GridDragViewModel(rows: Int, cols: Int, cellSize: CGFloat, viewFactory: ViewFactoryProtocol?, cells: [GridCell]?)
 
 GridDragViewModel(rows: 5, cols: 4, cellSize: 40, viewFactory: ViewFactory(), cells: nil)
 //or  
@@ -61,7 +61,7 @@ The "Demo" avoids this by making the `MainView` the owner of the `GridDragViewMo
 ## Interface  
 
 ```swift
-GridDragView(gridDragViewModel: myGridDragViewModel)
+func GridDragView(gridDragViewModel: myGridDragViewModel)
 ```
 `GridDragView` conforms to the `View` protocol.  It does not conform to additional protocols and has no other properties.  It can only be manipulated as a `View`.
 

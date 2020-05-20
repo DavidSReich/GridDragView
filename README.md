@@ -21,7 +21,7 @@ GridDragViewModel(rows: 4, cols: 3, cellSize: 40, viewFactory: nil, cells: gCell
 ```
 Where:
 
-```
+```swift
 class ViewFactory: ViewFactoryProtocol {
     func makeView(row: Int, col: Int) -> AnyView {
         AnyView(YourCellView())
@@ -30,7 +30,7 @@ class ViewFactory: ViewFactoryProtocol {
 ```
 or:
 
-```
+```swift
 struct GridCell: View {
     var cell: AnyView
     var body: some View {
@@ -46,7 +46,7 @@ let gCells: [GridDragViewModel.GridCell] = [
 ```
 Then pass the `GridDragViewModel` into a `GridDragView`:
 
-```
+```swift
 GridDragView(gridDragViewModel: myGridDragViewModel)
 ```
 
@@ -60,17 +60,17 @@ The "Demo" avoids this by making the `MainView` the owner of the `GridDragViewMo
 
 ## Interface  
 
-```
+```swift
 GridDragView(gridDragViewModel: myGridDragViewModel)
 ```
 `GridDragView` conforms to the `View` protocol.  It does not conform to additional protocols and has no other properties.  It can only be manipulated as a `View`.
 
-```
+```swift
 class GridDragViewModel: ObservableObject
 ```
 The `GridDragViewModel` is a class.  It is an `ObservableObject` and has a number of functions and properties.  
 ### Properties  
-```
+```swift
     var dragging = false
     var cellSize: CGFloat
     let rows: Int
@@ -79,39 +79,39 @@ The `GridDragViewModel` is a class.  It is an `ObservableObject` and has a numbe
 The `dragging` property is set to `true` by the `GridDragView` to tell the `GridDragViewModel` when a dragging gesture is ongoing and reset to `false` when the dragging gesture is finished.  
 The other properties are set when the `GridDragViewModel` is created.  
 ### Functions  
-```
+```swift
 GridDragViewModel(rows: Int, cols: Int, cellSize: CGFloat, viewFactory: ViewFactoryProtocol?, cells: [GridCell]?)
 ```
 The parameters `rows`, `cols`, and `cellSize` must be set.  The `cellSize` can be changed later - see `resizeCells()` below.  
 Either a `viewFactory` or a `cells` MUST be passed in.  If both are `nil` then a `fatalError` will be triggered.  
 If `cells` is used then `cells.count` must equal `rows * cols`, otherwise a `fatalError` will be triggered.
 
-```
+```swift
 func getCellView(row: Int, col: Int) -> AnyView
 ```
 `getCellView()` is called by `GridDragView` and returns the `View` to be placed at [row, col] in the `GridDragView`.  
 
-```
+```swift
 func moveViews(index: Int, translation: CGSize)
 ```
 `moveViews` is called by `GridDragView` whenever `DragGesture` events occur.  
 
-```
+```swift
 snapToGrid()
 ```
 `snapToGrid()` is called by `GridDragView` when a dragging gesture is finished and snaps the dragged cells into alignment with the grid.  
 
-```
+```swift
 resetCellOffsets()
 ```
 `resetCellOffsets()` can be called anytime it is desired to return the grid to its initial state.  This would usually be in response to some user action.  
 
-```
+```swift
 resizeCells(newCellSize: CGFloat)
 ```
 `resizeCells()` can be called anytime it is desired to changed the size of the cells.  This would usually be in response to some user action, such as when the device is rotated or some other user action implemented by the containing `Views`.  
 
-```
+```swift
 getCurrentOffset(index: Int) -> CGSize
 ```
 `getCurrentOffset()` is called by `GridDragView` when it is being refreshed.  It returns the current offset of the cell so the cell can be drawn (by SwiftUI) at the correct offset.  
